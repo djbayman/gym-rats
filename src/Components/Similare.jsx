@@ -18,29 +18,29 @@ const Similare = () => {
 
   return (
     <>
-      <div className="max-w-full overflow-hidden relative">
-        <h1 className=" text-4xl font-bold capitalize mb-10">
+      <div className="max-w-full overflow-hidden relative pb-4">
+        <h1 className=" text-xl font-bold capitalize mb-6">
           Watch <span className="text-red-500">Similar</span> exercise videos
         </h1>
         <div
           className="flex items-center  gap-11  transition-transform ease-out duration-1000"
           style={{ transform: `translateX(-${setIndex * 75}%)` }}
         >
-          {targetMuscle.map((image, ind) => (
+          {targetMuscle?.map((image, ind) => (
             <Link to={`exercise/${image.id}`} key={ind}>
               <div
                 key={ind}
-                className=" box  border-t-4 border-red-500 py-4 cursor-pointer transition-transform  hover:scale-95"
-                style={{ minWidth: "340px", height: "450px" }}
+                className=" box shadow-2xl rounded-md border-t-4 border-red-500 py-4 cursor-pointer transition-transform  hover:scale-95"
+                style={{ minWidth: "200px", height: "320px" }}
               >
                 <img src={image.gifUrl} alt={image.name} className="" />
-                <div className="flex items-center gap-3 justify-start ps-3 ">
-                  <span className="w-24 text-xl font-semibold mb-3 text-center rounded bg-red-300 text-white p-2">
-                    {image.target}
-                  </span>
+                <div className="w-20 font-semibold ms-2 my-3 text-center rounded bg-red-300 hover:bg-red-600 text-white py-1 transition-colors">
+                  {image?.target}
                 </div>
-                <p className="text-xl break-words font-semibold ps-3">
-                  {image.name}
+                <p className=" break-words font-semibold ps-3 pb-4">
+                  {image?.name.length > 25
+                    ? image.name.substring(0, 25) + "..."
+                    : image.name}
                 </p>
               </div>
             </Link>

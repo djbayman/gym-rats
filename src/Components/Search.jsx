@@ -4,19 +4,26 @@ import { ExerciesesContext } from "../context/ExerciesesContext";
 
 const Search = () => {
   const [search, setSearch] = useState("");
+
   const [setIndex, setSetIndex] = useState(0);
   const [text, setText] = useState("");
-  const { bodyPart, setBodyPart, setExos } = useContext(ExerciesesContext);
+  const {
+    bodyPart,
+    setBodyPart,
+    setExos,
+    setSearchResult,
+    exos,
+    selectedBodyPart,
+    setSelectedBodyPart,
+  } = useContext(ExerciesesContext);
 
   const { fetchData } = useAxios();
 
   useEffect(() => {
     const fetchBodyPart = async () => {
-      const bodyPartList = await fetchData("/bodyPartList", exOptions);
-      const allExo = await fetchData("", exOptions);
+      const bodyPartList = await fetchData("exercises/bodyPartList", exOptions);
       bodyPartList.unshift("All");
       setBodyPart(bodyPartList);
-      setExos(allExo);
     };
 
     fetchBodyPart();
@@ -24,16 +31,19 @@ const Search = () => {
 
   useEffect(() => {
     const fetchBodyPart = async () => {
-      const allExo = await fetchData("", exOptions);
-
-      const searchedExercieses = allExo.filter(
-        (exo) =>
-          exo.name.toLowerCase().includes(text) ||
-          exo.target.toLowerCase().includes(text) ||
-          exo.bodyPart.toLowerCase().includes(text) ||
-          exo.equipment.toLowerCase().includes(text)
-      );
-      setExos(searchedExercieses);
+      console.log(text);
+      if (text !== "All") {
+        const searchedExercieses = exos?.filter(
+          (exo) =>
+            exo.name.toLowerCase().includes(text) ||
+            exo.target.toLowerCase().includes(text) ||
+            exo.bodyPart.toLowerCase().includes(text) ||
+            exo.equipment.toLowerCase().includes(text)
+        );
+        setSelectedBodyPart(searchedExercieses);
+      } else {
+        setSelectedBodyPart([]);
+      }
     };
 
     fetchBodyPart();
@@ -47,23 +57,24 @@ const Search = () => {
   };
 
   //
-  const handleSearch = async () => {
-    if (search) {
-      const allExo = await fetchData("", exOptions);
+  useEffect(() => {
+    const handleSearch = async () => {
+      if (search !== "") {
+        const searchedExercieses = exos?.filter(
+          (exo) =>
+            exo.name.toLowerCase().includes(search) ||
+            exo.target.toLowerCase().includes(search) ||
+            exo.bodyPart.toLowerCase().includes(search) ||
+            exo.equipment.toLowerCase().includes(search)
+        );
+        setSearchResult(searchedExercieses);
+      }
+    };
+    handleSearch();
+  }, [search]);
 
-      const searchedExercieses = allExo.filter(
-        (exo) =>
-          exo.name.toLowerCase().includes(search) ||
-          exo.target.toLowerCase().includes(search) ||
-          exo.bodyPart.toLowerCase().includes(search) ||
-          exo.equipment.toLowerCase().includes(search)
-      );
-      setSearch("");
-      setExos(searchedExercieses);
-    }
-  };
   const handleEnter = async (e) => {
-    if (e.key === "Enter" && search) {
+    if (e.key === "Enter" && search !== "") {
       const allExo = await fetchData("", exOptions);
 
       const searchedExercieses = allExo.filter(
@@ -73,16 +84,16 @@ const Search = () => {
           exo.bodyPart.toLowerCase().includes(search) ||
           exo.equipment.toLowerCase().includes(search)
       );
-      setSearch("");
-      setExos(searchedExercieses);
+
+      setSearchResult(searchedExercieses);
     }
   };
 
   const currentSet = bodyPart;
 
   return (
-    <div className="my-20 ">
-      <h2 className="text-center text-4xl font-bold">
+    <div className="my-10 ">
+      <h2 className="text-center text-xl font-semibold">
         Awesome Exercises You Should Know
       </h2>
       <div className="field w-4/6 flex items-center px-3 mx-auto my-14">
@@ -96,30 +107,30 @@ const Search = () => {
         />
         <button
           className="w-44 bg-red-500 py-2 rounded text-white font-semibold    border-2 border-red-500 hover:bg-white hover:text-red-500 transition-colors"
-          onClick={handleSearch}
+          onClick={handleEnter}
         >
           Search
         </button>
       </div>
       <div className="max-w-full overflow-hidden relative">
         <div
-          className="flex items-center gap-52  transition-transform ease-out duration-1000"
+          className="flex items-center gap-40  transition-transform ease-out duration-1000"
           style={{ transform: `translateX(-${setIndex * 80}%)` }}
         >
           {currentSet &&
             currentSet.map((image, ind) => (
               <div
                 style={{
-                  minWidth: "200px",
+                  minWidth: "150px",
                 }}
                 key={ind}
                 className={`box bg-red-50 rounded  h-40 flex flex-col items-center justify-center cursor-pointer ${
-                  image === "All" ? "border-t-4  border-red-500" : ""
+                  text === image ? "border-t-4  border-red-500" : ""
                 }`}
                 onClick={() => setText(image)}
               >
-                <img className="h-14" src="/assets/icons/gym.png" alt="" />
-                <span className="text-xl font-semibold mt-4">{image}</span>
+                <img className="h-10" src="/assets/icons/gym.png" alt="" />
+                <span className=" font-semibold mt-4">{image}</span>
               </div>
             ))}
         </div>

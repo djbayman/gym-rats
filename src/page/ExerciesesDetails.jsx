@@ -23,27 +23,33 @@ const ExerciesesDetails = () => {
 
   useEffect(() => {
     const fetchSpecificExo = async () => {
-      const specificExoData = await fetchData(`/exercise/${id}`, exOptions);
+      const specificExoData = await fetchData(
+        `exercises/exercise/${id}`,
+        exOptions
+      );
       setSpecificExo(specificExoData);
-      //
-      const fetchYtVideosData = await fetch(
-        `https://youtube-search-and-download.p.rapidapi.com/search?query=${specificExoData.name} exercise`,
-        youtubeOptions
-      );
-      const ytVidoesData = await fetchYtVideosData.json();
-      setYoutubeVideos(ytVidoesData.contents);
-      //
-      const targetMuscleData = await fetchData(
-        `/target/${specificExo.target}`,
-        exOptions
-      );
-      setTargetMuscle(targetMuscleData);
-      //
-      const equipmentExoData = await fetchData(
-        `/equipment/${specificExo.equipment}`,
-        exOptions
-      );
-      setEquipmentExo(equipmentExoData);
+
+      if (specificExoData) {
+        //
+        const fetchYtVideosData = await fetch(
+          `https://youtube-search-and-download.p.rapidapi.com/search?query=${specificExoData?.name} exercise`,
+          youtubeOptions
+        );
+        const ytVidoesData = await fetchYtVideosData.json();
+        setYoutubeVideos(ytVidoesData.contents);
+        //
+        const targetMuscleData = await fetchData(
+          `exercises/target/${specificExoData?.target}`,
+          exOptions
+        );
+        setTargetMuscle(targetMuscleData);
+        //
+        const equipmentExoData = await fetchData(
+          `exercises/equipment/${specificExoData?.equipment}`,
+          exOptions
+        );
+        setEquipmentExo(equipmentExoData);
+      }
     };
     fetchSpecificExo();
   }, [id]);

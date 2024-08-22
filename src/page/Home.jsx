@@ -1,10 +1,10 @@
-import Exercieses from "../Components/Exercieses";
+import Exercieses from "./Exercieses";
 import Header from "../Components/Header";
 import Search from "../Components/Search";
 
 const Home = () => {
   return (
-    <div className="container  mx-auto">
+    <div className="">
       <Header />
       <Search />
       <Exercieses />

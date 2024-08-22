@@ -1,12 +1,12 @@
 const Footer = () => {
   return (
-    <div className="text-center bg-red-100 py-8">
+    <div className="flex justify-center gap-3 items-center bg-red-100 py-4">
       <img
         src="/public/assets/images/Logo.png"
         alt="logo"
-        style={{ width: "200px", height: "41px", margin: "auto" }}
+        style={{ width: "40px", height: "40px" }}
       />
-      <p className="text-2xl font-bold">Made with ❤️ by JavaScrip</p>
+      <p className=" font-bold pt-4">Keep Your self Sharp</p>
     </div>
   );
 };

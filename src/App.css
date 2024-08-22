@@ -1,0 +1,12 @@
+.img-header {
+  position: absolute;
+  top: -87px;
+  right: 0px;
+  height: calc(-91px + 100vh);
+  width: 60%;
+}
+@media (max-width: 589px) {
+  .p-img-header {
+    display: none;
+  }
+}

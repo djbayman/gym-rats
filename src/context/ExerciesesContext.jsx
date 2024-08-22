@@ -5,6 +5,8 @@ export const ExerciesesContext = createContext();
 const ExerciesesProvider = ({ children }) => {
   const [bodyPart, setBodyPart] = useState([]);
   const [exos, setExos] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
+  const [selectedBodyPart, setSelectedBodyPart] = useState([]);
   const [specificExo, setSpecificExo] = useState({});
   const [targetMuscle, setTargetMuscle] = useState([]);
   const [equipmentExo, setEquipmentExo] = useState([]);
@@ -23,6 +25,10 @@ const ExerciesesProvider = ({ children }) => {
     setEquipmentExo,
     youtubeVideos,
     setYoutubeVideos,
+    searchResult,
+    setSearchResult,
+    selectedBodyPart,
+    setSelectedBodyPart,
   };
 
   return (
