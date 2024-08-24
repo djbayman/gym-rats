@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { ExerciesesContext } from "../context/ExerciesesContext";
 
-import BodyPartImage from "/public/assets/icons/body-part.png";
-import TargetImage from "/public/assets/icons/target.png";
-import EquipmentImage from "/public/assets/icons/equipment.png";
+import BodyPartImage from "../assets/icons/body-part.png";
+import TargetImage from "../assets/icons/target.png";
+import EquipmentImage from "../assets/icons/equipment.png";
 
 const Details = () => {
   const { specificExo } = useContext(ExerciesesContext);

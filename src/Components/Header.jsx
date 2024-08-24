@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import bannerImg from "../assets/images/banner.png";
 
 const Header = () => {
   return (
@@ -20,7 +21,7 @@ const Header = () => {
       </div>
       <div className="p-img-header relative w-2/4 z-20">
         <img
-          src="/public/assets/images/banner.png"
+          src={bannerImg}
           alt=""
           className="img-header object-cover shadow-lg rounded-b-xl"
         />

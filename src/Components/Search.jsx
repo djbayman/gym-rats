@@ -7,15 +7,8 @@ const Search = () => {
 
   const [setIndex, setSetIndex] = useState(0);
   const [text, setText] = useState("");
-  const {
-    bodyPart,
-    setBodyPart,
-    setExos,
-    setSearchResult,
-    exos,
-    selectedBodyPart,
-    setSelectedBodyPart,
-  } = useContext(ExerciesesContext);
+  const { bodyPart, setBodyPart, setSearchResult, exos, setSelectedBodyPart } =
+    useContext(ExerciesesContext);
 
   const { fetchData } = useAxios();
 
@@ -129,7 +122,7 @@ const Search = () => {
                 }`}
                 onClick={() => setText(image)}
               >
-                <img className="h-10" src="/assets/icons/gym.png" alt="" />
+                <img className="h-10" src="../assets/icons/gym.png" alt="" />
                 <span className=" font-semibold mt-4">{image}</span>
               </div>
             ))}
@@ -137,13 +130,13 @@ const Search = () => {
       </div>
       <div className="flex items-center justify-end gap-4 mt-5 me-4">
         <img
-          src="/assets/icons/left-arrow.png"
+          src="../assets/icons/right-arrow.png"
           alt=""
           className="cursor-pointer p-2 hover:bg-red-50"
           onClick={showPrevSet}
         />
         <img
-          src="/assets/icons/right-arrow.png"
+          src="../assets/icons/right-arrow.png"
           alt=""
           className="cursor-pointer p-2 hover:bg-red-50"
           onClick={showNextSet}

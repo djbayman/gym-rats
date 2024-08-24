@@ -7,7 +7,7 @@ import { ExerciesesContext } from "../context/ExerciesesContext";
 import ExerciseVideos from "../Components/ExerciseVideos";
 
 import Similare from "../Components/Similare";
-import Equipment from "../Components/equipment";
+import Equipment from "../Components/Equipment";
 
 const ExerciesesDetails = () => {
   const {
