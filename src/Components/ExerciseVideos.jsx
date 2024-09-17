@@ -1,11 +1,9 @@
-import { useContext } from "react";
-import { ExerciesesContext } from "../context/ExerciesesContext";
 import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
-const ExerciseVideos = () => {
-  const { youtubeVideos } = useContext(ExerciesesContext);
-  const ytvidoes = youtubeVideos.slice(0, 4);
-  console.log(ytvidoes);
+const ExerciseVideos = ({ youtubeVideos, ytvidoesLoading }) => {
+  if (ytvidoesLoading) return <Loader />;
+  const ytvidoes = youtubeVideos?.contents.slice(0, 4);
 
   return (
     <div className="mb-10">
@@ -14,7 +12,7 @@ const ExerciseVideos = () => {
       </h1>
       <div className="flex items-center justify-evenly flex-wrap gap-10">
         {ytvidoes &&
-          ytvidoes.map((item, ind) => (
+          ytvidoes?.map((item, ind) => (
             <Link
               to={`https://www.youtube.com/${item.video.channelName}`}
               key={ind}
@@ -22,13 +20,17 @@ const ExerciseVideos = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="box ">
+              <div className="box max-h-40">
                 <img
                   src={item.video.thumbnails[0].url}
-                  className=" h-40 w-full"
+                  className="w-full"
                   alt=""
                 />
-                <h3 className="ps-3 font-semibold my-2 ">{item.video.title}</h3>
+                <h3 className="ps-3 font-semibold my-2 ">
+                  {item.video.title.length > 17
+                    ? item.video.title.substring(0, 17) + "..."
+                    : item.video.title}
+                </h3>
                 <span className="text-gray-400">{item.video.channelName}</span>
               </div>
             </Link>

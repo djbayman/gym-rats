@@ -1,28 +1,24 @@
-import { useContext } from "react";
-import { ExerciesesContext } from "../context/ExerciesesContext";
-
 import BodyPartImage from "../assets/icons/body-part.png";
 import TargetImage from "../assets/icons/target.png";
 import EquipmentImage from "../assets/icons/equipment.png";
+import Loader from "./Loader";
 
-const Details = () => {
-  const { specificExo } = useContext(ExerciesesContext);
-
+const Details = ({ specificExo, spExoLoading }) => {
   const extraDetail = [
     {
       icon: BodyPartImage,
-      name: specificExo.bodyPart,
+      name: specificExo?.bodyPart,
     },
     {
       icon: TargetImage,
-      name: specificExo.target,
+      name: specificExo?.target,
     },
     {
       icon: EquipmentImage,
-      name: specificExo.equipment,
+      name: specificExo?.equipment,
     },
   ];
-
+  if (spExoLoading) return <Loader />;
   if (!specificExo) return <div>No Data</div>;
 
   const instractionsData = specificExo.instructions;
@@ -61,6 +57,7 @@ const Details = () => {
                   width: "50px",
                   height: "50px",
                   textAlign: "center",
+                  cursor: "default",
                 }}
               >
                 <img
@@ -70,7 +67,7 @@ const Details = () => {
                   alt=""
                 />
               </button>
-              <span className="t font-semibold capitalize">{item.name}</span>
+              <span className="font-semibold capitalize">{item.name}</span>
             </div>
           ))}
         </div>

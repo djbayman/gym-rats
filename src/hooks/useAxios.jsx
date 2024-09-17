@@ -1,10 +1,6 @@
-export const exOptions = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": import.meta.env.VITE_GYMRATS_KEY,
-    "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-  },
-};
+import axios from "axios";
+import NoMatch from "../Components/NoMatch";
+
 //
 export const youtubeOptions = {
   method: "GET",
@@ -15,21 +11,26 @@ export const youtubeOptions = {
 };
 
 const useAxios = () => {
-  const fetchData = async (query, options) => {
+  const fetchData = async (query) => {
     try {
-      const result = await fetch(
+      const result = await axios.get(
         `https://exercisedb.p.rapidapi.com/${query}`,
-        options
+        {
+          headers: {
+            "X-RapidAPI-Key": import.meta.env.VITE_GYMRATS_KEY,
+            "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+          },
+        }
       );
-      const data = await result.json();
-      return data;
+      return result.data;
     } catch (err) {
-      alert("Error: refresh the page");
+      // alert("Error: refresh the page");
+      <NoMatch />;
     }
   };
 
   return {
-    fetchData: (query, options) => fetchData(query, options),
+    fetchData: (query) => fetchData(query),
   };
 };
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import bannerImg from "../assets/images/banner.png";
+import bannerImg from "../assets/images/muscular-athletic-bodybuilder-fitness-model-600w-360151730.jpg";
 
 const Header = () => {
   return (
@@ -19,11 +19,11 @@ const Header = () => {
           </button>
         </Link>
       </div>
-      <div className="p-img-header relative w-2/4 z-20">
+      <div className="p-img-header my-auto  z-20">
         <img
           src={bannerImg}
           alt=""
-          className="img-header object-cover shadow-lg rounded-b-xl"
+          className="img-header object-cover shadow-lg rounded-xl w-full"
         />
       </div>
     </div>

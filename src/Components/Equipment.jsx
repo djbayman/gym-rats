@@ -1,10 +1,12 @@
-import { useContext, useState } from "react";
-import { ExerciesesContext } from "../context/ExerciesesContext";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
-const Equipment = () => {
+import { Link } from "react-router-dom";
+import arrowLeft from "../assets/icons/left-arrow.png";
+import arrowRight from "../assets/icons/right-arrow.png";
+import Loader from "./Loader";
+
+const Equipment = ({ equipmentExo, equipmentLoading }) => {
   const [setIndex, setSetIndex] = useState(0);
-  const { equipmentExo } = useContext(ExerciesesContext);
 
   const showNextSet = () => {
     setSetIndex((prevIndex) => (prevIndex === 2 ? 0 : prevIndex + 1));
@@ -12,6 +14,8 @@ const Equipment = () => {
   const showPrevSet = () => {
     setSetIndex((prevIndex) => (prevIndex === 2 ? 0 : prevIndex - 1));
   };
+
+  if (equipmentLoading) return <Loader />;
 
   return (
     <>
@@ -23,37 +27,36 @@ const Equipment = () => {
           className="flex items-center  gap-11  transition-transform ease-out duration-1000"
           style={{ transform: `translateX(-${setIndex * 75}%)` }}
         >
-          {equipmentExo &&
-            equipmentExo?.map((image, ind) => (
-              <Link to={`/exercise/${image.id}`} className="" key={ind}>
-                <div
-                  key={ind}
-                  className=" box  shadow-2xl rounded-md  border-t-4 border-red-500 py-4 cursor-pointer transition-transform  hover:scale-95"
-                  style={{ minWidth: "200px", height: "320px" }}
-                >
-                  <img src={image.gifUrl} alt={image.name} className="" />
-                  <div className="w-20 font-semibold ms-2 my-3 text-center rounded bg-red-300 hover:bg-red-600 text-white py-1 transition-colors">
-                    {image.target}
-                  </div>
-                  <p className=" break-words font-semibold ps-3">
-                    {image?.name.length > 25
-                      ? image.name.substring(0, 25) + "..."
-                      : image.name}
-                  </p>
+          {equipmentExo?.map((image, ind) => (
+            <Link to={`/exercise/${image.id}`} className="" key={ind}>
+              <div
+                key={ind}
+                className=" box  shadow-2xl rounded-md  border-t-4 border-red-500 py-4 cursor-pointer transition-transform  hover:scale-95"
+                style={{ minWidth: "200px", height: "320px" }}
+              >
+                <img src={image.gifUrl} alt={image.name} className="" />
+                <div className="w-20 font-semibold ms-2 my-3 text-center rounded bg-red-300 hover:bg-red-600 text-white py-1 transition-colors">
+                  {image.target}
                 </div>
-              </Link>
-            ))}
+                <p className=" break-words font-semibold ps-3">
+                  {image?.name.length > 25
+                    ? image.name.substring(0, 25) + "..."
+                    : image.name}
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
       <div className="flex items-center justify-end gap-4 mt-5 me-4">
         <img
-          src="/assets/icons/left-arrow.png"
+          src={arrowLeft}
           alt=""
           className="cursor-pointer p-2 hover:bg-red-50 "
           onClick={showPrevSet}
         />
         <img
-          src="/assets/icons/right-arrow.png"
+          src={arrowRight}
           alt=""
           className="cursor-pointer p-2 hover:bg-red-50"
           onClick={showNextSet}

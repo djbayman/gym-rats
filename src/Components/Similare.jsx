@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
-import { ExerciesesContext } from "../context/ExerciesesContext";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import arrowLeft from "../assets/icons/left-arrow.png";
+import arrowRight from "../assets/icons/right-arrow.png";
 import Loader from "./Loader";
 
-const Similare = () => {
+const Similare = ({ targetMuscleData, targetLoading }) => {
   const [setIndex, setSetIndex] = useState(0);
-  const { targetMuscle } = useContext(ExerciesesContext);
 
   const showNextSet = () => {
     setSetIndex((prevIndex) => (prevIndex === 2 ? 0 : prevIndex + 1));
@@ -14,7 +14,7 @@ const Similare = () => {
     setSetIndex((prevIndex) => (prevIndex === 2 ? 0 : prevIndex - 1));
   };
 
-  if (!targetMuscle) return <Loader />;
+  if (targetLoading) return <Loader />;
 
   return (
     <>
@@ -26,7 +26,7 @@ const Similare = () => {
           className="flex items-center  gap-11  transition-transform ease-out duration-1000"
           style={{ transform: `translateX(-${setIndex * 75}%)` }}
         >
-          {targetMuscle?.map((image, ind) => (
+          {targetMuscleData?.map((image, ind) => (
             <Link to={`exercise/${image.id}`} key={ind}>
               <div
                 key={ind}
@@ -49,13 +49,13 @@ const Similare = () => {
       </div>
       <div className="flex items-center justify-end gap-4 mt-5 me-4">
         <img
-          src="/assets/icons/left-arrow.png"
+          src={arrowLeft}
           alt=""
           className="cursor-pointer p-2 hover:bg-red-50"
           onClick={showPrevSet}
         />
         <img
-          src="/assets/icons/right-arrow.png"
+          src={arrowRight}
           alt=""
           className="cursor-pointer p-2 hover:bg-red-50"
           onClick={showNextSet}

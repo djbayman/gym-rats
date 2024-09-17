@@ -1,33 +1,30 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ExerciesesContext } from "../context/ExerciesesContext";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loader from "../Components/Loader";
-import useAxios, { exOptions } from "../hooks/useAxios";
+import useAxios from "../hooks/useAxios";
+import { useQuery } from "react-query";
+import NoMatch from "../Components/NoMatch";
 
 const Exercieses = () => {
-  const location = useLocation();
-  const { exos, setExos, searchResult, selectedBodyPart } =
-    useContext(ExerciesesContext);
+  const { searchResult, selectedBodyPart } = useContext(ExerciesesContext);
 
   const { fetchData } = useAxios();
 
-  let exPath = location.pathname === "exercieses";
+  const {
+    isError,
+    isLoading,
+    data: exercieses,
+  } = useQuery({
+    queryFn: () => fetchData(`exercises?limit=20&offset=0`),
+    queryKey: "Exercises",
+    refetchOnWindowFocus: false,
+  });
 
-  useEffect(() => {
-    const fetchAllExo = async () => {
-      const allExo = await fetchData(
-        `${exPath ? "exercises?limit=20&offset=0" : "exercises"}`,
-        exOptions
-      );
-      setExos(allExo);
-    };
+  if (isLoading) return <Loader />;
+  if (isError) return <NoMatch />;
 
-    fetchAllExo();
-  }, []);
-
-  if (!exos.length) return <Loader />;
-
-  let mainContent = searchResult.length ? searchResult : exos;
+  let mainContent = searchResult.length ? searchResult : exercieses;
   let secondMainContent = selectedBodyPart.length
     ? selectedBodyPart
     : mainContent;
