@@ -1,8 +1,16 @@
-# React + Vite
+# Gym-Rats
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Gym-rats is a fitness website designed to help you get in shape. It offers a
+wide range of exercises, step-by-step guides, and comprehensive information
+about your body
 
-Currently, two official plugins are available:
+## Tech Stack:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+              - React.js
+              - TailwindCss
+              - React Query
+              - ReRESTful API (from Rapid api)
+
+## Demo:
+
+https://gym-rats-j1zyywzbp-aymanes-projects-27be667b.vercel.app/
